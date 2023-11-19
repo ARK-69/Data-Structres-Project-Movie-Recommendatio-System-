@@ -270,20 +270,7 @@ string signIn(string username, string password)
     
 }
 
-void sign_up()
-{
-    string name, email, password;
-    cout << "Enter your name: ";
-    cin >> name;
-    cout << "Enter your email: ";
-    cin >> email;
-    cout << "Enter your password: ";
-    cin >> password;
-    Users u(name, email, password, NULL, 0);
-    u.user_file();
-    
 
-}
 // class Admin
 // {
 //     string name;
@@ -306,7 +293,20 @@ void displayMenu() {
     cout << "3. Exit" << endl;
     cout << "======================" << endl;
 }
-
+void signUp() {
+    
+    string name, email, password;
+    cout << "Enter your user name: ";
+    cin >> name;
+    cout << "Enter your email: ";
+    cin >> email;
+    cout << "Enter your password: ";
+    cin >> password;
+    Users u(name, email, password, NULL, 0);
+    u.user_file();
+    // add code to sort the username in ascending order and to make sure no duplicate usernames are added
+    cout << "Sign-up successful. You can now sign in with your credentials." << endl;
+}2
 void handleMenuChoice(int choice) {
     string username;
     string password;
@@ -322,7 +322,7 @@ void handleMenuChoice(int choice) {
     } else if (choice == 2) {
         signUp();
     } else if (choice == 3) {
-        exitProgram();
+       return;
     } else if (choice == 4) {
         // Do nothing; exit handled in the loop condition
     } else {
@@ -332,20 +332,7 @@ void handleMenuChoice(int choice) {
 
 
 
-void signUp() {
-    sign_up();
-    string name, email, password;
-    cout << "Enter your user name: ";
-    cin >> name;
-    cout << "Enter your email: ";
-    cin >> email;
-    cout << "Enter your password: ";
-    cin >> password;
-    Users u(name, email, password, NULL, 0);
-    u.user_file();
-    // add code to sort the username in ascending order and to make sure no duplicate usernames are added
-    cout << "Sign-up successful. You can now sign in with your credentials." << endl;
-}
+
 
 void exitProgram() {
     cout << "Exiting the program. Goodbye!" << endl;
