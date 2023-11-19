@@ -225,7 +225,7 @@ public:
             {
                 istringstream iss(check);
                 iss >> name >> email >> password;
-                
+                //we have to write to a func to write movies into the obj aswell
             }
 }}
   else{cout<<"File not found"<<endl;
@@ -240,7 +240,7 @@ public:
         m.close();
     }
 };
-string login(string username, string password)
+string signIn(string username, string password)
 {
     string name, email, pass;
     string check;
@@ -308,43 +308,42 @@ void displayMenu() {
 }
 
 void handleMenuChoice(int choice) {
-    switch (choice) {
-        case 1:
-            signIn();
-            break;
-        case 2:
-            signUp();
-            break;
-        case 3:
-            exitProgram();
-            break;
-        case 4:
-            // Do nothing; exit handled in the loop condition
-            break;
-        default:
-            cout << "Invalid choice. Please enter a valid option." << endl;
-    }
-}
-
-void signIn() {
-    string username, password;
-    cout << "Enter your username: ";
-    cin >> username;
-    cout << "Enter your password: ";
-    cin >> password;
-
-    string result = login(username, password);
-
-    if (result != "\0") {
-        cout << "Login successful. Welcome, " << result << "!" << endl;
-        // Add code for what to do after successful login
+    string username;
+    string password;
+    string email;
+    
+    if (choice == 1) {
+        cout << "Enter your username: ";
+        cin >> username;
+        cout << "Enter your password: ";
+        cin >> password;
+        Users u1(signIn(username, password));
+        //call interface function of user
+    } else if (choice == 2) {
+        signUp();
+    } else if (choice == 3) {
+        exitProgram();
+    } else if (choice == 4) {
+        // Do nothing; exit handled in the loop condition
     } else {
-        cout << "Login failed. Invalid username or password." << endl;
+        cout << "Invalid choice. Please enter a valid option." << endl;
     }
 }
+
+
 
 void signUp() {
     sign_up();
+    string name, email, password;
+    cout << "Enter your user name: ";
+    cin >> name;
+    cout << "Enter your email: ";
+    cin >> email;
+    cout << "Enter your password: ";
+    cin >> password;
+    Users u(name, email, password, NULL, 0);
+    u.user_file();
+    // add code to sort the username in ascending order and to make sure no duplicate usernames are added
     cout << "Sign-up successful. You can now sign in with your credentials." << endl;
 }
 
