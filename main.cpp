@@ -389,16 +389,6 @@ void exitProgram()
 
 int main()
 {
-    // Movies m("Avengers", "Action", 4.5, 100, 2012, "Russo Brothers", "Robert Downey Jr.", "Scarlett Johansson");
-    // m.movie_file();
-    // string name="Niggs";
-    // Users user("John", "kike","bruh");
-    // user.user_file();
-    // name=login("John", "bruh");
-    // Users u(name);
-    // cout<<u.get_name()<<endl;
-    // cout<<u.get_email()<<endl;
-    // cout<<u.get_password()<<endl;
     int choice;
 
     do
