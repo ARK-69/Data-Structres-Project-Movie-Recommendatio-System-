@@ -167,10 +167,7 @@ public:
     {
         return password;
     }
-    Movies *get_myList()
-    {
-        return myList;
-    }
+    
     int get_myListSize()
     {
         return myListSize;
@@ -185,6 +182,52 @@ public:
         {
             myList[i].print();
         }
+    }
+    void print_movie_list(){
+        //movie list printing func
+    }
+    void reccomendation(){
+        //recommendation algorithm
+    }
+    void reccomendation_director(){
+        //recommendation algorithm
+    }
+    void reccomendation_actor(){
+        //recommendation algorithm
+    }
+    void user_interface(){
+        int choice;
+        do{
+            cout<<"1. Recommendation"<<endl;
+            cout<<"2. Recommendation by actor"<<endl;
+            cout<<"3. Recommendation by director"<<endl;
+            cout<<"4. View my list"<<endl;
+            cout<<"5. Sign out"<<endl;
+            cout<<"Enter your choice: ";
+            cin>>choice;
+            switch(choice){
+                case 1:
+                // search for a movie
+                break;
+                case 2:
+                // add a movie to my list
+                break;
+                case 3:
+                // remove a movie from my list
+                break;
+                case 4:
+                // view my list
+                break;
+                case 5:
+                return;
+                // sign out
+                break;
+                default:
+                cout<<"Invalid choice. Please enter a valid option."<<endl;
+            }
+            system("cls");
+    }
+    while(choice!=5);
     }
     Users()
     {
@@ -211,9 +254,9 @@ public:
         this->myListSize = myListSize;
     }
     Users(string filename)
-    {
+    {   
+    
         filename.append(".txt");
-        cout << filename << endl;
         ifstream p(filename);
         string check;
         // we have to wrrite code to read movies from the file and then store it in the array
@@ -240,18 +283,13 @@ public:
 
     void user_file() // to append user login credentials to a file
     {
-        ofstream m("users.txt", ios::app);
-        m << name << setw(20) << email << setw(20) << password<<endl;
+        ofstream m("users.txt",ios::app);
+        m << name << setw(20) << email << setw(20) << password << endl;
         m.close();
         string filename=name;
         filename.append(".txt");
-        cout << filename << endl;
-        ofstream p(filename);
-//        if(){
-//        	cout<<"File not found";
-//		}
-       p.close();
-        
+        ofstream new_file(filename);
+        new_file.close();
     }
 };
 string signIn(string username, string password)
@@ -292,25 +330,16 @@ string signIn(string username, string password)
 //     string password;
 // };
 
-// class Recommendation
-// {
-//     int capacity;
-//     list<Movies> *table;
 
-// public:
-//     // make a
-// };
-void displayMenu()
-{
+void displayMenu() {
     cout << "=== Movie App Menu ===" << endl;
     cout << "1. Sign In" << endl;
     cout << "2. Sign Up" << endl;
     cout << "3. Exit" << endl;
     cout << "======================" << endl;
 }
-void signUp()
-{
-
+void signUp() {
+    system("cls");
     string name, email, password;
     cout << "Enter your user name: ";
     cin >> name;
@@ -322,36 +351,31 @@ void signUp()
     u.user_file();
     // add code to sort the username in ascending order and to make sure no duplicate usernames are added
     cout << "Sign-up successful. You can now sign in with your credentials." << endl;
+    cout << "Press any key to continue" << endl;
+    getch();
 }
-void handleMenuChoice(int choice)
-{
+void handleMenuChoice(int choice) {
     string username;
     string password;
     string email;
-
-    if (choice == 1)
-    {
+    
+    if (choice == 1) {
+        system("cls");
         cout << "Enter your username: ";
         cin >> username;
         cout << "Enter your password: ";
         cin >> password;
-        Users u1(signIn(username, password));
-        // call interface function of user
-    }
-    else if (choice == 2)
-    {
+        username=signIn(username, password);
+        if(username!="\0"){
+        Users u1(username);
+        system("cls");
+        u1.user_interface();}
+        
+    } else if (choice == 2) {
         signUp();
-    }
-    else if (choice == 3)
-    {
-        return;
-    }
-    else if (choice == 4)
-    {
-        // Do nothing; exit handled in the loop condition
-    }
-    else
-    {
+    } else if (choice == 3) {
+       return;
+    } else {
         cout << "Invalid choice. Please enter a valid option." << endl;
     }
 }
@@ -365,16 +389,6 @@ void exitProgram()
 
 int main()
 {
-    // Movies m("Avengers", "Action", 4.5, 100, 2012, "Russo Brothers", "Robert Downey Jr.", "Scarlett Johansson");
-    // m.movie_file();
-    // string name="Niggs";
-    // Users user("John", "kike","bruh");
-    // user.user_file();
-    // name=login("John", "bruh");
-    // Users u(name);
-    // cout<<u.get_name()<<endl;
-    // cout<<u.get_email()<<endl;
-    // cout<<u.get_password()<<endl;
     int choice;
 
     do
@@ -386,7 +400,7 @@ int main()
 
         handleMenuChoice(choice);
 
-    } while (choice != 4); // Exit when the user chooses option 4
+    } while (choice != 3); // Exit when the user chooses option 4
 
     return 0;
 }
