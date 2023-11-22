@@ -10,7 +10,6 @@
 #include <list>
 using namespace std;
 
-
 class Movies
 {
     string name;
@@ -121,7 +120,7 @@ public:
         this->lead_actor = lead_actor;
         this->lead_actress = lead_actress;
     }
-    
+
     void movie_file() // to append movie details to a file
     {
         ofstream m("movies.txt", ios::app);
@@ -261,18 +260,24 @@ public:
         ifstream p(filename);
         string check;
         // we have to wrrite code to read movies from the file and then store it in the array
-        if(p.is_open()){
-            while(getline(p, check)){
-			
-			 if (!p.eof())
+        if (p.is_open())
+        {
+            while (getline(p, check))
             {
-                istringstream iss(check);
-                iss >> name >> email >> password;
-                //we have to write to a func to write movies into the obj aswell
+
+                
+                    istringstream iss(check);
+                    iss >> name >> email >> password;
+                    cout<<"it works";
+                    getch();
+					// we have to write to a func to write movies into the obj aswell
+                
             }
-}}
-  else{cout<<"File not found"<<endl;
-  }      
+        }
+        else
+        {
+            cout << "File not found" << endl;
+        }
         p.close();
     }
 
@@ -293,20 +298,22 @@ string signIn(string username, string password)
     string check;
     int i = 0;
     ifstream p("users.txt");
-    
-       while( getline(p, check)){
-	           if (!p.eof())
-        {
+	if(p.is_open()){
+		cout<<"fileopen";
+	}
+    while (getline(p, check))
+    {
+        
             istringstream iss(check);
             iss >> name >> email >> pass;
             if (username == name && pass == password)
             {
-            	p.close();
+                p.close();
                 return username;
-            }
+            
         }
-}
-    
+    }
+
     cout << "Invalid username or password" << endl;
     cout << "Press any key to continue" << endl;
     getch();
@@ -314,9 +321,7 @@ string signIn(string username, string password)
     // menu();
     p.close();
     return "\0";
-    
 }
-
 
 // class Admin
 // {
@@ -375,18 +380,16 @@ void handleMenuChoice(int choice) {
     }
 }
 
-
-
-
-
-void exitProgram() {
+void exitProgram()
+{
     cout << "Exiting the program. Goodbye!" << endl;
     // Add any necessary cleanup code before exiting
     exit(0);
 }
-    
-    int main() {
-        // Movies m("Avengers", "Action", 4.5, 100, 2012, "Russo Brothers", "Robert Downey Jr.", "Scarlett Johansson");
+
+int main()
+{
+    // Movies m("Avengers", "Action", 4.5, 100, 2012, "Russo Brothers", "Robert Downey Jr.", "Scarlett Johansson");
     // m.movie_file();
     // string name="Niggs";
     // Users user("John", "kike","bruh");
@@ -398,7 +401,8 @@ void exitProgram() {
     // cout<<u.get_password()<<endl;
     int choice;
 
-    do {
+    do
+    {
         system("cls");
         displayMenu();
         cout << "Enter your choice: ";
@@ -410,7 +414,3 @@ void exitProgram() {
 
     return 0;
 }
-
-
-
-
