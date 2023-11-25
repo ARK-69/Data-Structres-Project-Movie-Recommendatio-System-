@@ -183,51 +183,58 @@ public:
             myList[i].print();
         }
     }
-    void print_movie_list(){
-        //movie list printing func
-    }
-    void reccomendation(){
-        //recommendation algorithm
-    }
-    void reccomendation_director(){
-        //recommendation algorithm
-    }
-    void reccomendation_actor(){
-        //recommendation algorithm
-    }
-    void user_interface(){
-        int choice;
-        do{
-            cout<<"1. Recommendation"<<endl;
-            cout<<"2. Recommendation by actor"<<endl;
-            cout<<"3. Recommendation by director"<<endl;
-            cout<<"4. View my list"<<endl;
-            cout<<"5. Sign out"<<endl;
-            cout<<"Enter your choice: ";
-            cin>>choice;
-            switch(choice){
+   void recommended_menu(){
+         int choice;
+         do{
+          system("cls");
+          cout<<"1. For you"<<endl;
+          cout<<"2. General"<<endl;
+          cout<<"3. Latest hits"<<endl;
+          cout<<"4. Exit"<<endl;
+          cin>>choice;
+          switch(choice){
                 case 1:
-                // search for a movie
+                //for you func
                 break;
                 case 2:
-                // add a movie to my list
+                //general func
                 break;
                 case 3:
-                // remove a movie from my list
+                //latest hits func
                 break;
                 case 4:
-                // view my list
-                break;
-                case 5:
                 return;
-                // sign out
-                break;
                 default:
-                cout<<"Invalid choice. Please enter a valid option."<<endl;
-            }
-            system("cls");
-    }
-    while(choice!=5);
+                cout<<"Invalid choice"<<endl;
+                break;
+          }
+         }
+         while(1);
+   }
+    void user_interface(){
+        int choice;
+       do{
+        system("cls");
+        cout<<"1. Add to my list"<<endl;
+        cout<<"2. Recommended"<<endl;
+        cout<<"3. Exit"<<endl;
+        cin>>choice;
+        switch(choice){
+            case 1:
+            //add to my list
+            break;
+            case 2:
+            recommended_menu();
+            break;
+            case 3:
+            return;
+            break;
+            default:
+            cout<<"Invalid choice"<<endl;
+            break;
+        }
+       }
+       while(1);
     }
     Users()
     {
