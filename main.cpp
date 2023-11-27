@@ -485,7 +485,7 @@ public:
         set_watchlist(filename);
     }
 
-    void create_user_file() 
+    void create_user_file() // to append user login credentials to a file
     {
         ofstream m("users.txt",ios::app);
         m << name << setw(20) << email << setw(20) << password << endl;
