@@ -120,7 +120,16 @@ public:
         this->lead_actor = lead_actor;
         this->lead_actress = lead_actress;
     }
-
+    Movies(const Movies &m){
+        name=m.name;
+        genre=m.genre;
+        rating=m.rating;
+        views=m.views;
+        year=m.year;
+        director=m.director;
+        lead_actor=m.lead_actor;
+        lead_actress=m.lead_actress;
+    }
     void movie_file() // to append movie details to a file
     {
         ofstream m("movies.txt", ios::app);
@@ -128,7 +137,208 @@ public:
         m.close();
     }
 };
+class Node{
+    Movies data;
+    Node *next;
+    Node *prev;
+    public:
+    Node(){
+        next=NULL;
+        prev=NULL;
+    }
+    Node(Movies data){
+        this->data=data;
+        next=NULL;
+        prev=NULL;
+    }
+    void set_data(Movies data){
+        this->data=data;
+    }
+    void set_next(Node *next){
+        this->next=next;
+    }
+    void set_prev(Node *prev){
+        this->prev=prev;
+    }
+    Movies get_data(){
+        return data;
+    }
+    Node *get_next(){
+        return next;
+    }
+    Node *get_prev(){
+        return prev;
+    }
+};
+class Hashtable{
+    Node *array[100];
+    public:
+    Hashtable(){
+        for(int i=0;i<100;i++){
+            array[i]=NULL;
+        }
+    }
+    int hashFunction(string key){
+        int hash=0;
+        for(int i=0;key[i]!=NULL;i++){
+            hash=(hash*31)+key[i];
+        }
+        return hash%100;
+    }
+    int hashFunction(int key){
+        return key%100;
+    }
+    void insert(string key,Movies m){
+        int index=hashFunction(key);
+        Node *newNode=new Node(m);
+        if(array[index]==NULL){
+            array[index]=newNode;
+        }
+        else{
+            Node *temp=array[index];
+            while(temp->get_next()!=NULL){
+                temp=temp->get_next();
+            }
+            temp->set_next(newNode);
+            newNode->set_prev(temp);
+        }
+    }
+    void insert(int key,Movies m){
+        int index=hashFunction(key);
+        Node *newNode=new Node(m);
+        if(array[index]==NULL){
+            array[index]=newNode;
+        }
+        else{
+            Node *temp=array[index];
+            while(temp->get_next()!=NULL){
+                temp=temp->get_next();
+            }
+            temp->set_next(newNode);
+            newNode->set_prev(temp);
+        }
+    }
+    void print(){
+        for(int i=0;i<100;i++){
+            if(array[i]!=NULL){
+                Node *temp=array[i];
+                while(temp!=NULL){
+                    temp->get_data().print();
+                    temp=temp->get_next();
+                }
+            }
+        }
+    }
+    void search(string key){
+        int index=hashFunction(key);
+        if(array[index]==NULL){
+            cout<<"Movie not found"<<endl;
+        }
+        else{
+            Node *temp=array[index];
+            while(temp!=NULL){
+                if(temp->get_data().get_name()==key){
+                    temp->get_data().print();
+                    return;
+                }
+                temp=temp->get_next();
+            }
+            cout<<"Movie not found"<<endl;
+        }
+    }
+    Node* get_root_node(string key){
+        int index=hashFunction(key);
+        if(array[index]==NULL){
+            return NULL;
+        }
+        else{
+            return array[index];
+        }
+    }
+    Node* get_root_node(int key){
+        int index=hashFunction(key);
+        if(array[index]==NULL){
+            return NULL;
+        }
+        else{
+            return array[index];
+        }
+    }        
+};
+Node* merge(Node*a, Node*b){
+    Node *result=NULL;
+    if(a==NULL){
+        return b;
+    }
+    else if(b==NULL){
+        return a;
+    }
+    if(a->get_data().get_rating()>=b->get_data().get_rating()){
+        result=a;
+        result->set_next(merge(a->get_next(),b));
+    }
+    else{
+        result=b;
+        result->set_next(merge(a,b->get_next()));
+    }
+    return result;
+}
+//  void merge(Node* head, int low, int middle, int high) {
+//     int n1 = middle - low + 1;
+//     int n2 = high - middle;
+//     Node** leftarray = new Node*[n1];
+//     Node** rightarray = new Node*[n2];
 
+    
+//     Node* temp = head;
+//     for (int i = 0; i < n1; i++) {
+//         *(leftarray+i)->data = temp->data;
+//         leftarray = leftarray->next;
+//         temp = temp->next;
+//     }
+//     for (int i = 0; i < n2; i++) {
+//         rightarray->data = temp->data;
+//         rightarray = rightarray->next;
+//         temp = temp->next;
+//     }
+
+   
+//     int i = 0;
+//     int j = 0;
+//     while (i < n1 && j < n2) {
+//         if (leftarray->data <= rightarray->data) {
+//             head->data = leftarray->data;
+//             leftarray = leftarray->next;
+//         }
+//         else {
+//             head->data = rightarray->data;
+//             rightarray = rightarray->next;
+//         }
+//         head = head->next;
+//     }
+
+//     while (i < n1) {
+//         head->data = leftarray->data;
+//         leftarray = leftarray->next;
+//         head = head->next;
+//         i++;
+//     }
+//     while (j < n2) {
+//         head->data = rightarray->data;
+//         rightarray = rightarray->next;
+//         head = head->next;
+//         j++;
+//     }
+// }
+
+// void sort(Node* head, int low, int high) {
+//     if (low < high) {
+//         int middle = (low + high) / 2;
+//         sort(head, low, middle);
+//         sort(head, middle + 1, high);
+//         merge(head, low, middle, high);
+//     }
+// }
 class Users
 {
     string name;
