@@ -265,24 +265,24 @@ class Hashtable{
         }
     }        
 };
-Node* merge(Node*a, Node*b){
-    Node *result=NULL;
-    if(a==NULL){
-        return b;
-    }
-    else if(b==NULL){
-        return a;
-    }
-    if(a->get_data().get_rating()>=b->get_data().get_rating()){
-        result=a;
-        result->set_next(merge(a->get_next(),b));
-    }
-    else{
-        result=b;
-        result->set_next(merge(a,b->get_next()));
-    }
-    return result;
-}
+// Node* merge(Node*a, Node*b){
+//     Node *result=NULL;
+//     if(a==NULL){
+//         return b;
+//     }
+//     else if(b==NULL){
+//         return a;
+//     }
+//     if(a->get_data().get_rating()>=b->get_data().get_rating()){
+//         result=a;
+//         result->set_next(merge(a->get_next(),b));
+//     }
+//     else{
+//         result=b;
+//         result->set_next(merge(a,b->get_next()));
+//     }
+//     return result;
+// }
 //  void merge(Node* head, int low, int middle, int high) {
 //     int n1 = middle - low + 1;
 //     int n2 = high - middle;
@@ -344,8 +344,7 @@ class Users
     string name;
     string email;
     string password;
-    Movies *myList;
-    int myListSize;
+    Hashtable watchlist;
 
 public:
     void set_name(string name)
@@ -360,11 +359,7 @@ public:
     {
         this->password = password;
     }
-    void set_myList(Movies *myList, int myListSize)
-    {
-        this->myList = myList;
-        this->myListSize = myListSize;
-    }
+   
     string get_name()
     {
         return name;
@@ -377,10 +372,31 @@ public:
     {
         return password;
     }
-    
-    int get_myListSize()
-    {
-        return myListSize;
+    void print_watchlist(){
+        watchlist.print();
+    }
+    void set_watchlist(string filename){
+        string name, genre, director, lead_actor, lead_actress;
+        float rating;
+        int views, year;
+        string check;
+        
+        ifstream p(filename);
+        if (p.is_open())
+        {
+            while (getline(p, check))
+            {
+                istringstream iss(check);
+                iss >> name >> genre >> rating >> views >> year >> director >> lead_actor >> lead_actress;
+                Movies m(name, genre, rating, views, year, director, lead_actor, lead_actress);
+                watchlist.insert(name,m);
+            }
+        }
+        else
+        {
+            cout << "File not found" << endl;
+        }
+        p.close();
     }
     void print()
     {
@@ -388,10 +404,7 @@ public:
         cout << "Email: " << email << endl;
         cout << "Password: " << password << endl;
         cout << "My List: " << endl;
-        for (int i = 0; i < myListSize; i++)
-        {
-            myList[i].print();
-        }
+        
     }
    void recommended_menu(){
          int choice;
@@ -451,54 +464,28 @@ public:
         name = "";
         email = "";
         password = "";
-        myList = NULL;
-        myListSize = 0;
+       
     }
+    // Users(string name, string email, string password)
+    // {
+    //     this->name = name;
+    //     this->email = email;
+    //     this->password = password;
+      
+    // }
     Users(string name, string email, string password)
     {
         this->name = name;
         this->email = email;
         this->password = password;
-        myList = NULL;
-        myListSize = 0;
-    }
-    Users(string name, string email, string password, Movies *myList, int myListSize)
-    {
-        this->name = name;
-        this->email = email;
-        this->password = password;
-        this->myList = myList;
-        this->myListSize = myListSize;
+        
     }
     Users(string filename)
     {   
-    
-        filename.append(".txt");
-        ifstream p(filename);
-        string check;
-        // we have to wrrite code to read movies from the file and then store it in the array
-        if (p.is_open())
-        {
-            while (getline(p, check))
-            {
-
-                
-                    istringstream iss(check);
-                    iss >> name >> email >> password;
-                    cout<<"it works";
-                    getch();
-					// we have to write to a func to write movies into the obj aswell
-                
-            }
-        }
-        else
-        {
-            cout << "File not found" << endl;
-        }
-        p.close();
+        set_watchlist(filename);
     }
 
-    void user_file() // to append user login credentials to a file
+    void create_user_file() // to append user login credentials to a file
     {
         ofstream m("users.txt",ios::app);
         m << name << setw(20) << email << setw(20) << password << endl;
@@ -539,15 +526,6 @@ string signIn(string username, string password)
     p.close();
     return "\0";
 }
-
-// class Admin
-// {
-//     string name;
-//     string email;
-//     string password;
-// };
-
-
 void displayMenu() {
     cout << "=== Movie App Menu ===" << endl;
     cout << "1. Sign In" << endl;
@@ -564,8 +542,8 @@ void signUp() {
     cin >> email;
     cout << "Enter your password: ";
     cin >> password;
-    Users u(name, email, password, NULL, 0);
-    u.user_file();
+    Users u(name, email, password);
+    u.create_user_file();
     // add code to sort the username in ascending order and to make sure no duplicate usernames are added
     cout << "Sign-up successful. You can now sign in with your credentials." << endl;
     cout << "Press any key to continue" << endl;
