@@ -15,6 +15,7 @@ class Movies
     string name;
     string genre;
     float rating;
+    float user_rating;
     int views;
     int year;
     string director;
@@ -22,6 +23,10 @@ class Movies
     string lead_actress;
 
 public:
+    void set_user_rating(float userrating)
+    {
+        this->user_rating = userrating;
+    }
     void set_name(string name)
     {
         this->name = name;
@@ -53,6 +58,10 @@ public:
     void set_lead_actress(string lead_actress)
     {
         this->lead_actress = lead_actress;
+    }
+    float get_user_rating()
+    {
+        return user_rating;
     }
     string get_name()
     {
@@ -105,6 +114,7 @@ public:
         rating = 0;
         views = 0;
         year = 0;
+        user_rating=0;
         director = "";
         lead_actor = "";
         lead_actress = "";
@@ -229,21 +239,23 @@ class Hashtable{
             }
         }
     }
-    void search(string key){
+    bool search(string key){
         int index=hashFunction(key);
         if(array[index]==NULL){
             cout<<"Movie not found"<<endl;
+            return false;
         }
         else{
             Node *temp=array[index];
             while(temp!=NULL){
                 if(temp->get_data().get_name()==key){
                     temp->get_data().print();
-                    return;
+                    return true;
                 }
                 temp=temp->get_next();
             }
             cout<<"Movie not found"<<endl;
+            return false;
         }
     }
     Node* get_root_node(string key){
@@ -265,80 +277,7 @@ class Hashtable{
         }
     }        
 };
-// Node* merge(Node*a, Node*b){
-//     Node *result=NULL;
-//     if(a==NULL){
-//         return b;
-//     }
-//     else if(b==NULL){
-//         return a;
-//     }
-//     if(a->get_data().get_rating()>=b->get_data().get_rating()){
-//         result=a;
-//         result->set_next(merge(a->get_next(),b));
-//     }
-//     else{
-//         result=b;
-//         result->set_next(merge(a,b->get_next()));
-//     }
-//     return result;
-// }
-//  void merge(Node* head, int low, int middle, int high) {
-//     int n1 = middle - low + 1;
-//     int n2 = high - middle;
-//     Node** leftarray = new Node*[n1];
-//     Node** rightarray = new Node*[n2];
-
-    
-//     Node* temp = head;
-//     for (int i = 0; i < n1; i++) {
-//         *(leftarray+i)->data = temp->data;
-//         leftarray = leftarray->next;
-//         temp = temp->next;
-//     }
-//     for (int i = 0; i < n2; i++) {
-//         rightarray->data = temp->data;
-//         rightarray = rightarray->next;
-//         temp = temp->next;
-//     }
-
-   
-//     int i = 0;
-//     int j = 0;
-//     while (i < n1 && j < n2) {
-//         if (leftarray->data <= rightarray->data) {
-//             head->data = leftarray->data;
-//             leftarray = leftarray->next;
-//         }
-//         else {
-//             head->data = rightarray->data;
-//             rightarray = rightarray->next;
-//         }
-//         head = head->next;
-//     }
-
-//     while (i < n1) {
-//         head->data = leftarray->data;
-//         leftarray = leftarray->next;
-//         head = head->next;
-//         i++;
-//     }
-//     while (j < n2) {
-//         head->data = rightarray->data;
-//         rightarray = rightarray->next;
-//         head = head->next;
-//         j++;
-//     }
-// }
-
-// void sort(Node* head, int low, int high) {
-//     if (low < high) {
-//         int middle = (low + high) / 2;
-//         sort(head, low, middle);
-//         sort(head, middle + 1, high);
-//         merge(head, low, middle, high);
-//     }
-// }
+void latest_hits();
 class Users
 {
     string name;
@@ -398,6 +337,30 @@ public:
         }
         p.close();
     }
+   
+    void for_you(){
+        string name, genre, director, lead_actor, lead_actress;
+        float rating;
+        int views, year;
+        string check;
+        ifstream p("movies.txt");
+        if (p.is_open())
+        {
+            while (getline(p, check))
+            {
+                istringstream iss(check);
+                iss >> name >> genre >> rating >> views >> year >> director >> lead_actor >> lead_actress;
+                Movies m(name, genre, rating, views, year, director, lead_actor, lead_actress);
+                watchlist.insert(genre,m);
+            }
+        }
+        else
+        {
+            cout << "File not found" << endl;
+        }
+        p.close();
+        
+    }
     void print()
     {
         cout << "Name: " << name << endl;
@@ -406,6 +369,7 @@ public:
         cout << "My List: " << endl;
         
     }
+
    void recommended_menu(){
          int choice;
          do{
@@ -417,13 +381,13 @@ public:
           cin>>choice;
           switch(choice){
                 case 1:
-                //for you func
+                for_you();
                 break;
                 case 2:
                 //general func
                 break;
                 case 3:
-                //latest hits func
+                latest_hits();
                 break;
                 case 4:
                 return;
@@ -466,13 +430,7 @@ public:
         password = "";
        
     }
-    // Users(string name, string email, string password)
-    // {
-    //     this->name = name;
-    //     this->email = email;
-    //     this->password = password;
-      
-    // }
+    
     Users(string name, string email, string password)
     {
         this->name = name;
@@ -496,6 +454,85 @@ public:
         new_file.close();
     }
 };
+Node* merge(Node* left, Node* right) {
+    if (!left) return right;
+    if (!right) return left;
+
+    Node* result = NULL;
+    Movies l(left->get_data());
+    Movies r(right->get_data());
+    if (l.get_rating() >= r.get_rating()) {
+        result = left;
+        result->set_next( merge(left->get_next(), right));
+    } else {
+        result = right;
+        result->set_next((left, right->get_next()));
+    }
+
+    return result;
+}
+
+// Function to perform merge sort on the linked list
+Node* mergeSort(Node* head) {
+    if (!head || !head->get_next()) { // Base case: 0 or 1 node
+        return head;  // Base case: empty list or single node
+    }
+
+    // Split the list into two halves
+    Node* slow = head;
+    Node* fast = head->get_next();
+
+    while (fast && fast->get_next()) {
+        slow = slow->get_next();
+        fast = fast->get_next()->get_next();
+    }
+
+    Node* secondHalf = slow->get_next();
+    slow->set_next(NULL);
+
+    // Recursively sort each half
+    head = mergeSort(head);
+    secondHalf = mergeSort(secondHalf);
+
+    // Merge the sorted halves
+    return merge(head, secondHalf);
+}
+void latest_hits(){
+    Hashtable table;
+    string name, genre, director, lead_actor, lead_actress;
+    float rating;
+    int views, year;
+    string check;
+    ifstream p("movies.txt");
+    if (p.is_open())
+    {
+        while (getline(p, check))
+        {
+            istringstream iss(check);
+            iss >> name >> genre >> rating >> views >> year >> director >> lead_actor >> lead_actress;
+            Movies m(name, genre, rating, views, year, director, lead_actor, lead_actress);
+            table.insert(year,m);
+            
+        }
+    }
+    else
+    {
+        cout << "File not found" << endl;
+    }
+    p.close();
+    Node *temp=table.get_root_node(2023);
+    //  table.print();
+     
+    temp=mergeSort(temp);
+    // temp->get_data().print();
+    // cin>>name;
+    while(temp!=NULL){
+        temp->get_data().print();
+        temp=temp->get_next();
+    }
+    cout<<"Press any button to continue"<<endl;
+    cin>>name;
+}
 string signIn(string username, string password)
 {
     string name, email, pass;
