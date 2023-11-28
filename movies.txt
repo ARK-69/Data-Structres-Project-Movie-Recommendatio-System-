@@ -1,26 +1,7 @@
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
-Avengers              Action                 4.5                 100                2012      Russo Brothers   Robert Downey Jr.  Scarlett Johansson
+vengers           Action        4.5   100   2012   Russo Brothers     Robert Downey Jr.  Scarlett Johansson
+Inception         Sci-Fi        3.8   120   2010   Christopher Nolan  Leonardo DiCaprio  Ellen Page
+Titanic           Drama         4.0   195   1997   James Cameron       Leonardo DiCaprio  Kate Winslet
+The Matrix        Sci-Fi        4.2   136   2023   Wachowski Siblings  Keanu Reeves       Carrie-Anne Moss
+Star Wars         Adventure     4.7   121   1977   George Lucas        Mark Hamill        Carrie Fisher
+Avengers          Action        4.5   100   2023   Russo Brothers     Robert Downey Jr.  Scarlett Johansson
+
